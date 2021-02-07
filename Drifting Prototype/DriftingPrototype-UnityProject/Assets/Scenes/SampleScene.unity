@@ -198,17 +198,93 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyState: 0
-  startVelocity: 5
+  drivingVelocity: 5
+  timeToMaxDrift: 5
+  driftPercentTreshold: 0.35
+  maxRadius: 10
+  radiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.0005864
+      inSlope: -0.027847871
+      outSlope: -0.027847871
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.062796205
+    - serializedVersion: 3
+      time: 0.27681202
+      value: 0.9477625
+      inSlope: -0.61529666
+      outSlope: -0.61529666
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17326738
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.46259773
+      value: 0.6131748
+      inSlope: -0.9530604
+      outSlope: -0.9530604
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6866653
+      value: 0.531806
+      inSlope: -0.37724227
+      outSlope: -0.37724227
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23323809
+      outWeight: 0.1926039
+    - serializedVersion: 3
+      time: 1
+      value: 0.18222483
+      inSlope: 0.016198484
+      outSlope: 0.016198484
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3138536
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxRotationsPerSecond: 2
+  rotationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  trailRenderer: {fileID: 841493560}
   velocity: 0
+  driftPercent: 0
   driftingDirection: 0
-  percentToMaxDrift: 0
   actualRadius: 0
   actualRotationsPerSecond: 0
   startRotationsPerSecond: 0
-  radius: 2
-  maxRotationsPerSecond: 2
-  timeToMaxRotationsPerSecond: 4
-  minRotationsPerSecondToDrift: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +388,7 @@ GameObject:
   - component: {fileID: 841493559}
   - component: {fileID: 841493560}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +427,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e6394ee4057821f418fe2c6ef21d22bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,7 +448,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.8
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -380,8 +456,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.026786804
-        value: 0.1078434
+        time: 0.0072288513
+        value: 0.10106468
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -394,7 +470,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0.9382353}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -410,8 +486,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 15420
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -419,7 +495,7 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -563,7 +639,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1586c4f2cd0d15d4384187be9a637fb5, type: 2}
+  - {fileID: 2100000, guid: 76e00ccbc1362ee4fab46a43af5c2a5b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -657,7 +733,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b83d3bf75db8f704fb67e55cf64a537f, type: 2}
+  - {fileID: 2100000, guid: b1d294f5fc729c142a4742097bc02078, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
