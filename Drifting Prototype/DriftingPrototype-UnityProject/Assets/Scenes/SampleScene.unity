@@ -200,14 +200,15 @@ MonoBehaviour:
   MyState: 0
   startVelocity: 5
   velocity: 0
-  angularFrequency: 0
   driftingDirection: 0
-  percentToMaxAngularFrequency: 0
-  radius: 4
-  startAngularfrequency: 5
-  maxAngularFrequency: 15
-  timeToMaxAngularFrequency: 4
-  minAngularFrequencyToDrift: 7
+  percentToMaxDrift: 0
+  actualRadius: 0
+  actualRotationsPerSecond: 0
+  startRotationsPerSecond: 0
+  radius: 2
+  maxRotationsPerSecond: 2
+  timeToMaxRotationsPerSecond: 4
+  minRotationsPerSecondToDrift: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
