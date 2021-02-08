@@ -22,7 +22,9 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     private bool _ready = false;
 
-    private void OnEnable()
+
+
+    public override void OnEnable()
     {
         base.OnEnable();
         SetReadyUp(false);
@@ -88,7 +90,7 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        //_roomsCanvases.CurrentRoomCanvas.Lea
+        _roomsCanvases.CurrentRoomCanvas.LeaveRoomMenu.OnClick_LeaveRoom();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -111,12 +113,42 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            for (int i = 0; i < _listings.Count; i++)
+            {
+                if (_listings[i].Player != PhotonNetwork.LocalPlayer)
+                {
+                    if (!_listings[i].Ready)
+                        return;
+                }
+            }
+
+
+
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel(1);
         }
     }
 
+    public void OnCLick_ReadyUp()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            SetReadyUp(!_ready);
+            base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer, _ready);
+        }
+    }
 
+    [PunRPC]
+    private void RPC_ChangeReadyState(Player player, bool ready)
+    {
+        int index = _listings.FindIndex(x => x.Player == player);
+
+        if (index != -1)
+        {
+            _listings[index].Ready = ready;
+
+        }
+    }
 
 }

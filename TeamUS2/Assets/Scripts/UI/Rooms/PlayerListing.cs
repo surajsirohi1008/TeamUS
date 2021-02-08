@@ -12,6 +12,8 @@ public class PlayerListing : MonoBehaviourPunCallbacks
     private Text _text;
 
     public Player Player { get; private set; }
+
+    public bool Ready = false;
     public void SetPlayerInfo(Player player)
     {
         Player = player;

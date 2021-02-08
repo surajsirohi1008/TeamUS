@@ -1411,7 +1411,7 @@ ScriptsOnlyBuild:
     className: OnClickInstantiate
   - hash:
       serializedVersion: 2
-      Hash: af0537dabf7072720b1497b88b975216
+      Hash: 4abf403d66af2d5da4e8cdfb2eb7bfb7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerListing
