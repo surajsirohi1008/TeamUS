@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - MasterManager
     - PlayerListing
     - PlayerListingMenu
+    - RandomCustomPropertyGenerator
     - RoomListing
     - RoomListingMenu
     - RoomsCanvases
@@ -213,6 +214,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4042}
     - Class: 114
       Script: {instanceID: 4088}
+    - Class: 114
+      Script: {instanceID: 19252}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1622,8 +1625,14 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerListingMenu
+  - hash:
+      serializedVersion: 2
+      Hash: af0537dabf7072720b1497b88b975216
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RandomCustomPropertyGenerator
   platform: 5
   scenePathNames:
   - Assets/Scenes/Room.unity
   - Assets/Scenes/Game.unity
-  playerPath: D:/Unity Projects/Shooty Drift/Build/Shooty Drift.exe
+  playerPath: D:/Unity Projects/TeamUS/TeamUS2/Build/Shooty Drift.exe

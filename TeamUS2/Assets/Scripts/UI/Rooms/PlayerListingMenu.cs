@@ -56,7 +56,7 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     private void GetCurrentRoomPlayers()
     {
-        if (PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsConnected)
             return;
         if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Players == null)
             return;
@@ -109,7 +109,12 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void OnClick_StartGame()
     {
-        PhotonNetwork.LoadLevel(1);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+            PhotonNetwork.LoadLevel(1);
+        }
     }
 
 
