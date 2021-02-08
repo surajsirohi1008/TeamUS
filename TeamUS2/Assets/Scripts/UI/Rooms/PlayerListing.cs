@@ -22,6 +22,11 @@ public class PlayerListing : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        if (targetPlayer != null && targetPlayer == Player)
+        {
+            if (changedProps.ContainsKey("RandomNumber"))
+                SetPlayerText(targetPlayer);
+        }
     }
 
     private void SetPlayerText(Player player)

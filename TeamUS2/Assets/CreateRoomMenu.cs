@@ -26,6 +26,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         //CreateRoom
         //JoinOrCreateRoom
         RoomOptions options = new RoomOptions();
+        options.BroadcastPropsChangeToAll = true;
 
         options.MaxPlayers = 4;
 
