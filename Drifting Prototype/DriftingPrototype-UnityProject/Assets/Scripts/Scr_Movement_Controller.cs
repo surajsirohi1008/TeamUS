@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_Movement_Controller : MonoBehaviour
 {
-    private enum State { Driving, Steering, Drifting };
+    private enum State { NoInput, Steering, Drifting };
     [SerializeField] private State MyState;
 
     [Header("General Settings")]
@@ -16,17 +16,24 @@ public class Scr_Movement_Controller : MonoBehaviour
     [Space(15)]
     [SerializeField] private float maxRadius;
     [SerializeField] private AnimationCurve radiusCurve;
+    //[Space(15)]
+    //[SerializeField] [Range(0f, 5f)] private float maxRotationsPerSecond;
+    //[SerializeField] private AnimationCurve rotationCurve;
     [Space(15)]
-    [SerializeField] [Range(0f, 5f)] private float maxRotationsPerSecond;
-    [SerializeField] private AnimationCurve rotationCurve;
-    
+    [SerializeField] [Range(0f, 100f)] private float maxDriftingVelocity;
+    [SerializeField] private AnimationCurve dirftingVelocityCurve;
+
+
     [Header("Components")]
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private GameObject body;
     private Rigidbody rb;
 
     //other parameters
     private float rotationStartTime;
     private float input;
+    private Quaternion lastDriftBodyRotation;
+    public float momentumVelocity = 0;
 
     [Header("Debug")]
     public float velocity;
@@ -35,6 +42,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     public float actualRadius;
     public float actualRotationsPerSecond;
     public float startRotationsPerSecond;
+    public float percentTest1, percentTest2;
 
     void Start()
     {
@@ -50,12 +58,12 @@ public class Scr_Movement_Controller : MonoBehaviour
         //Debug
         velocity = rb.velocity.magnitude;//Debug velocity
         actualRotationsPerSecond = rb.angularVelocity.magnitude / (2 * Mathf.PI);//Debug rotations per second
-        actualRadius = MyState != State.Driving ? rb.velocity.magnitude / rb.angularVelocity.magnitude : 0;//Debug radius
+        actualRadius = MyState != State.NoInput ? rb.velocity.magnitude / rb.angularVelocity.magnitude : 0;//Debug radius
 
 
         switch (MyState)
         {
-            case State.Driving:
+            case State.NoInput:
                 if (input != 0) { DrivingToSteering(); break; }//Switch to Drifting
                 Driving();
                 break;
@@ -70,9 +78,19 @@ public class Scr_Movement_Controller : MonoBehaviour
                 Rotating();
                 break;
         }
+
     }
     private void Driving()
-    { rb.velocity = transform.forward * drivingVelocity; }
+    {
+        //rb.velocity = transform.forward * drivingVelocity; 
+        if (momentumVelocity > 0)
+        { momentumVelocity -= 5 * Time.deltaTime; }
+        else { momentumVelocity = 0; }
+
+        rb.velocity = transform.forward * momentumVelocity;
+        percentTest2 = 1 - rb.velocity.magnitude / maxDriftingVelocity;
+        body.transform.localRotation = Quaternion.Lerp(lastDriftBodyRotation, Quaternion.Euler(0, 0, 0), percentTest2);
+    }
     private void Rotating()//Steering and Drifting
     {
         //Handle Drift direction
@@ -81,8 +99,8 @@ public class Scr_Movement_Controller : MonoBehaviour
             driftingDirection = (int)input;//change direction
             if (driftPercent >= driftPercentTreshold)
             {
-                float driftPercentSetback = .3f;
-                rotationStartTime = Time.time - timeToMaxDrift * (driftPercent - driftPercentSetback);//Setback drift percent
+                //float driftPercentSetback = .3f;
+                //rotationStartTime = Time.time - timeToMaxDrift * (driftPercent - driftPercentSetback);//Setback drift percent
             }
         }
 
@@ -90,20 +108,23 @@ public class Scr_Movement_Controller : MonoBehaviour
         float rotationLifeTime = Time.time - rotationStartTime;
         driftPercent = Mathf.Clamp(rotationLifeTime / timeToMaxDrift, 0f, 1f);
 
-        //Calculate rotation values
-        float startRotationsPerSecondInRad = drivingVelocity / maxRadius * radiusCurve.Evaluate(0);
-        startRotationsPerSecond = startRotationsPerSecondInRad / (2 * Mathf.PI);//debug
-        float maxRotationsPerSecondInRad = maxRotationsPerSecond* rotationCurve.Evaluate(1) * 2 * Mathf.PI;
+        //rb.velocity = transform.forward * Mathf.Lerp(drivingVelocity, maxDriftingVelocity, dirftingVelocityCurve.Evaluate(driftPercent));
+        rb.velocity = transform.forward * Mathf.Lerp(0, maxDriftingVelocity, dirftingVelocityCurve.Evaluate(driftPercent));
+        float angularFrequency = rb.velocity.magnitude / (radiusCurve.Evaluate(driftPercent) * maxRadius);
+        rb.angularVelocity = transform.up * angularFrequency * driftingDirection;
 
-        //Lerp and set values
-        // rb.angularVelocity = transform.up * Mathf.Lerp(startRotationsPerSecondInRad, maxRotationsPerSecondInRad, driftPercent) * driftingDirection;
-        rb.angularVelocity = transform.up * Mathf.Lerp(startRotationsPerSecondInRad, maxRotationsPerSecondInRad, rotationCurve.Evaluate(driftPercent)) * driftingDirection;
-        rb.velocity = transform.forward * (maxRadius * radiusCurve.Evaluate(driftPercent) * rb.angularVelocity.magnitude);//set velocity to keep desired turn radius 
+
+        percentTest1 = rb.velocity.magnitude / maxDriftingVelocity;
+        body.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, 0), Quaternion.Euler(0, 40 * driftingDirection, 0), percentTest1);
+        lastDriftBodyRotation = body.transform.localRotation;
+
+
     }
     private void DrivingToSteering()//Transition to Steering 
     {//Set up variables
         driftingDirection = (int)input;
-        rotationStartTime = Time.time;
+        //rotationStartTime = Time.time;
+        rotationStartTime = Time.time - timeToMaxDrift * (rb.velocity.magnitude / maxDriftingVelocity);//Setback drift percent
         MyState = State.Steering;
     }
     private void DriftingToSteering()//Transition to Steering 
@@ -113,13 +134,15 @@ public class Scr_Movement_Controller : MonoBehaviour
     }
     private void SteeringToDrifting()//Transition to Drifting 
     {//Set up variables
+     
         trailRenderer.emitting = true;
         MyState = State.Drifting;
     }
     private void AnyToDriving()//Transition to Driving 
     {//Set up variables
+        momentumVelocity = rb.velocity.magnitude;
         driftPercent = 0;
         trailRenderer.emitting = false;
-        MyState = State.Driving;
+        MyState = State.NoInput;
     }
 }
