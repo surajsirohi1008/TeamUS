@@ -24,6 +24,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     [Header("Components")]
     [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private GameObject body;
+    private Scr_Shooting_Controller scr_Shooting_Controller;
     private Rigidbody rb;
 
     //other parameters
@@ -44,6 +45,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        scr_Shooting_Controller = GetComponent<Scr_Shooting_Controller>();
         trailRenderer.emitting = false;
         rb.maxAngularVelocity = 100f;
         driftPercent = 0;
@@ -70,7 +72,7 @@ public class Scr_Movement_Controller : MonoBehaviour
                 Rotating();
                 break;
             case State.Drifting:
-                if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) { AnyToDriving(); break; }//Switch to Driving
+                if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) {TriggerShot(); AnyToDriving(); break; }//Switch to Driving
                 if (driftPercent < driftPercentTreshold) { DriftingToSteering(); break; }
                 Rotating();
                 break;
@@ -149,5 +151,9 @@ public class Scr_Movement_Controller : MonoBehaviour
         driftPercent = 0;
         trailRenderer.emitting = false;
         MyState = State.Driving;
+    }
+    private void TriggerShot()
+    {
+        scr_Shooting_Controller.Shoot(driftPercent);
     }
 }
