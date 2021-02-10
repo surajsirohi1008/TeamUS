@@ -5378,7 +5378,6 @@ MonoBehaviour:
   driftPercentRead: 0
   driftPercentTresholdRead: 0
   velocity: 0
-  driftPower: 0
   driftingDirection: 0
   actualRadius: 0
   actualRotationsPerSecond: 0
@@ -9270,7 +9269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8700686, b: 0.5235849, a: 1}
+  m_Color: {r: 0.9998548, g: 1, b: 0.5254902, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9538,15 +9537,9 @@ MonoBehaviour:
   - {fileID: 496213237}
   - {fileID: 441250449}
   scr_Movement_Controller: {fileID: 683852183}
-  percent: 0
   totalWidthInPixels: 250
   heightInPixels: 80
   spacingInPixels: 10
-  myPercentages:
-  - 0
-  - 0
-  - 0
-  - 0
 --- !u!222 &1373115960
 CanvasRenderer:
   m_ObjectHideFlags: 0

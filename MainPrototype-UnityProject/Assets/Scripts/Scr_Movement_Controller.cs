@@ -31,6 +31,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     private float driftPercent;
     private float rotationStartTime;
     private float input;
+    private float driftPower;
     //private Quaternion lastDriftBodyRotation;
     private Vector3 momentum = Vector3.zero;
 
@@ -39,7 +40,6 @@ public class Scr_Movement_Controller : MonoBehaviour
 
     [Header("Debug")]
     public float velocity;
-    //public float driftPower;//used as read value by other scripts
     public int driftingDirection;
     public float actualRadius;
     public float actualRotationsPerSecond;
@@ -119,7 +119,7 @@ public class Scr_Movement_Controller : MonoBehaviour
         //Lerp angular velocity and velocity values
         float rotationLifeTime = Time.time - rotationStartTime;
         driftPercent = Mathf.Clamp(rotationLifeTime / timeToMaxDrift, 0f, 1f);
-        //driftPower = Mathf.Clamp((rotationLifeTime - timeToMaxDrift * driftPercentTreshold) / (timeToMaxDrift - timeToMaxDrift * driftPercentTreshold), 0, 1);
+        driftPower = Mathf.Clamp((rotationLifeTime - timeToMaxDrift * driftPercentTreshold) / (timeToMaxDrift - timeToMaxDrift * driftPercentTreshold), 0, 1);
 
 
         rb.velocity = transform.forward * Mathf.Lerp(drivingVelocity, maxDriftingVelocity, driftingVelocityCurve.Evaluate(driftPercent)) + momentum;
@@ -150,12 +150,12 @@ public class Scr_Movement_Controller : MonoBehaviour
     {//Set up variables
         momentum = rb.velocity.normalized * Mathf.Clamp(rb.velocity.magnitude, 0, maxDriftingVelocity);
         driftPercent = 0;
-        //riftPower = 0;
+        driftPower = 0;
         trailRenderer.emitting = false;
         MyState = State.Driving;
     }
     private void TriggerShot()
     {
-        scr_Shooting_Controller.Shoot(driftPercent);
+        scr_Shooting_Controller.Shoot(driftPower);
     }
 }
