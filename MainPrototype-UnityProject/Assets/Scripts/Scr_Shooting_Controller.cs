@@ -16,7 +16,6 @@ public class Scr_Shooting_Controller : MonoBehaviour
     }
     public void Shoot(float percent)
     {
-        print(percent);
         GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
         rb.velocity = newProjectile.transform.forward * projectileSpeed;
