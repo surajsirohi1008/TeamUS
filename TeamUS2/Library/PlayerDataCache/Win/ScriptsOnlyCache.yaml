@@ -9,10 +9,12 @@ ScriptsOnlyBuild:
     - MasterManager
     - PlayerListing
     - PlayerListingMenu
+    - QuickInstantiate
     - RandomCustomPropertyGenerator
     - RoomListing
     - RoomListingMenu
     - RoomsCanvases
+    - SimpleObjectMover
     - SingletonReferences
     - TestConnect
     PhotonUnityNetworking.Demos.dll:
@@ -35,6 +37,14 @@ ScriptsOnlyBuild:
     - Photon.Pun.ServerSettings
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -79,11 +89,31 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 3352}
+    - Class: 114
+      Script: {instanceID: 3736}
+    - Class: 114
+      Script: {instanceID: 3750}
+    - Class: 114
+      Script: {instanceID: 16804}
+    - Class: 114
+      Script: {instanceID: 28538}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 135
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -216,6 +246,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4044}
     - Class: 114
       Script: {instanceID: 4090}
+    - Class: 114
+      Script: {instanceID: 28538}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1631,6 +1663,18 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerListingMenu
+  - hash:
+      serializedVersion: 2
+      Hash: aad690be56e4265f5de9f49a27456cf4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: QuickInstantiate
+  - hash:
+      serializedVersion: 2
+      Hash: 8bde088c3603087093c000784e5911fb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SimpleObjectMover
   platform: 5
   scenePathNames:
   - Assets/Scenes/Room.unity

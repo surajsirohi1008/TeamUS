@@ -61,7 +61,7 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\CreateRoomMenu.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
-    <Compile Include="Assets\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameSettings.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\RoomListing.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\CreateOrJoinRoomCanvas.cs" />
@@ -70,12 +70,13 @@
     <Compile Include="Assets\Scripts\SingletonReferences.cs" />
     <Compile Include="Assets\Scripts\Utilities\ExitTransforms.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Rooms\RandomCustomPropertyGenerator.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
     <Compile Include="Assets\TestConnect.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
-    <Compile Include="Assets\MasterManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\MasterManager\MasterManager.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\CurrentRoomCanvas.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\PlayerListing.cs" />
@@ -83,9 +84,11 @@
     <Compile Include="Assets\Scripts\UI\Rooms\RoomsCanvases.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\LeaveRoomMenu.cs" />
-    <Compile Include="Assets\SingletonScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\Managers\SingletonScriptableObject.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\PlayerListingMenu.cs" />
-    <Compile Include="Assets\Scripts\UI\Rooms\RandomCustomPropertyGenerator.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Network\QuickInstantiate.cs" />
+    <Compile Include="Assets\Scripts\Managers\MasterManager\NetworkPrefab.cs" />
+    <Compile Include="Assets\Scripts\SIngleUse\SimpleObjectMover.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
