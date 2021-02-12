@@ -3,12 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleObjectMover : MonoBehaviourPun
+public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
 {
     private Animator _animator;
 
     [SerializeField]
     private float _moveSpeed;
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+        //}
+        //else if (stream.IsReading)
+        //{
+        //    transform.position = (Vector3)stream.ReceiveNext();
+        //    transform.rotation = (Quaternion)stream.ReceiveNext();
+        //}
+    }
 
     private void Awake()
     {

@@ -9,6 +9,8 @@ public class TestConnect : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        PhotonNetwork.SendRate = 20;
+        PhotonNetwork.SerializationRate = 5;
         Debug.Log("Connecting to Photon...", this);
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = "0.0.1";
