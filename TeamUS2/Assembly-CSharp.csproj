@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\UI\Rooms\LeaveRoomMenu.cs" />
     <Compile Include="Assets\Scripts\Managers\SingletonScriptableObject.cs" />
     <Compile Include="Assets\Scripts\UI\Rooms\PlayerListingMenu.cs" />
+    <Compile Include="Assets\Scripts\SIngleUse\OwnershipTransfer.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
