@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TireTrail
       objectReference: {fileID: 0}
+    - target: {fileID: 1775259580439043013, guid: eddc2c3ad7c2c3f46b3fd3d72fe80a49,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1775259580439043034, guid: eddc2c3ad7c2c3f46b3fd3d72fe80a49,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -316,12 +321,12 @@ PrefabInstance:
     - target: {fileID: 1775259580439043034, guid: eddc2c3ad7c2c3f46b3fd3d72fe80a49,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.74
+      value: -5.71
       objectReference: {fileID: 0}
     - target: {fileID: 1775259580439043034, guid: eddc2c3ad7c2c3f46b3fd3d72fe80a49,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.5
+      value: 16.97
       objectReference: {fileID: 0}
     - target: {fileID: 1775259580439043034, guid: eddc2c3ad7c2c3f46b3fd3d72fe80a49,
         type: 3}
