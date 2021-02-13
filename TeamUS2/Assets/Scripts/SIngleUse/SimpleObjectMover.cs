@@ -8,10 +8,10 @@ public class SimpleObjectMover : MonoBehaviourPun, IPunObservable
     private Animator _animator;
 
     [SerializeField]
-    private float _moveSpeed;
+    private float _moveSpeed, _missileSpeed;
 
     [SerializeField]
-    private GameObject gun;
+    private GameObject gun, _bulletPrefab;
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -60,9 +60,9 @@ public class SimpleObjectMover : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void ShootMissile()
     {
-        if (!gun.activeSelf)
-            gun.SetActive(true);
-        else
-            gun.SetActive(false);
+        GameObject tempMissile = MasterManager.NetworkInstantiate(_bulletPrefab, gun.transform.position, Quaternion.identity);
+
+        tempMissile.GetComponent<Rigidbody>().velocity = new Vector3(_missileSpeed, 0, 0);
+
     }
 }

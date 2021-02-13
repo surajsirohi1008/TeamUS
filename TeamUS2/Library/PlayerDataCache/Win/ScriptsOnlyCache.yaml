@@ -29,6 +29,8 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
     PhotonUnityNetworking.Editor.dll:
+    - Photon.Pun.PhotonTransformViewEditor
+    - Photon.Pun.PhotonViewInspector
     - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
@@ -87,6 +89,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 74
@@ -102,19 +106,19 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1564}
+      Script: {instanceID: 1562}
     - Class: 114
-      Script: {instanceID: 1900}
+      Script: {instanceID: 1898}
     - Class: 114
-      Script: {instanceID: 1958}
+      Script: {instanceID: 1956}
     - Class: 114
-      Script: {instanceID: 3238}
+      Script: {instanceID: 3236}
     - Class: 114
-      Script: {instanceID: 3362}
+      Script: {instanceID: 3360}
     - Class: 114
-      Script: {instanceID: 3746}
+      Script: {instanceID: 3744}
     - Class: 114
-      Script: {instanceID: 3760}
+      Script: {instanceID: 3758}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -171,91 +175,93 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1440}
     - Class: 114
-      Script: {instanceID: 1520}
+      Script: {instanceID: 1518}
     - Class: 114
-      Script: {instanceID: 1556}
+      Script: {instanceID: 1554}
     - Class: 114
-      Script: {instanceID: 1564}
+      Script: {instanceID: 1562}
     - Class: 114
-      Script: {instanceID: 1592}
+      Script: {instanceID: 1590}
     - Class: 114
-      Script: {instanceID: 1710}
+      Script: {instanceID: 1708}
     - Class: 114
-      Script: {instanceID: 1744}
+      Script: {instanceID: 1742}
     - Class: 114
-      Script: {instanceID: 1770}
+      Script: {instanceID: 1768}
     - Class: 114
-      Script: {instanceID: 1800}
+      Script: {instanceID: 1798}
     - Class: 114
-      Script: {instanceID: 1826}
+      Script: {instanceID: 1824}
     - Class: 114
-      Script: {instanceID: 1866}
+      Script: {instanceID: 1864}
+    - Class: 114
+      Script: {instanceID: 1898}
+    - Class: 114
+      Script: {instanceID: 1956}
     - Class: 114
       Script: {instanceID: 1958}
     - Class: 114
-      Script: {instanceID: 1960}
+      Script: {instanceID: 2002}
     - Class: 114
-      Script: {instanceID: 2004}
+      Script: {instanceID: 2078}
     - Class: 114
-      Script: {instanceID: 2080}
+      Script: {instanceID: 2250}
     - Class: 114
-      Script: {instanceID: 2252}
+      Script: {instanceID: 2486}
     - Class: 114
-      Script: {instanceID: 2488}
+      Script: {instanceID: 2494}
     - Class: 114
-      Script: {instanceID: 2496}
+      Script: {instanceID: 2504}
     - Class: 114
-      Script: {instanceID: 2506}
+      Script: {instanceID: 2528}
     - Class: 114
-      Script: {instanceID: 2530}
+      Script: {instanceID: 2574}
     - Class: 114
-      Script: {instanceID: 2576}
+      Script: {instanceID: 2582}
     - Class: 114
-      Script: {instanceID: 2584}
+      Script: {instanceID: 2596}
     - Class: 114
-      Script: {instanceID: 2598}
+      Script: {instanceID: 2750}
     - Class: 114
-      Script: {instanceID: 2752}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2782}
+      Script: {instanceID: 2814}
     - Class: 114
-      Script: {instanceID: 2816}
+      Script: {instanceID: 2866}
     - Class: 114
-      Script: {instanceID: 2868}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 3128}
     - Class: 114
-      Script: {instanceID: 3130}
+      Script: {instanceID: 3246}
     - Class: 114
-      Script: {instanceID: 3248}
+      Script: {instanceID: 3332}
     - Class: 114
-      Script: {instanceID: 3334}
+      Script: {instanceID: 3360}
     - Class: 114
-      Script: {instanceID: 3362}
+      Script: {instanceID: 3384}
     - Class: 114
-      Script: {instanceID: 3386}
+      Script: {instanceID: 3464}
     - Class: 114
-      Script: {instanceID: 3466}
+      Script: {instanceID: 3582}
     - Class: 114
-      Script: {instanceID: 3584}
+      Script: {instanceID: 3728}
     - Class: 114
-      Script: {instanceID: 3730}
+      Script: {instanceID: 3740}
     - Class: 114
-      Script: {instanceID: 3742}
+      Script: {instanceID: 3744}
     - Class: 114
-      Script: {instanceID: 3746}
+      Script: {instanceID: 3758}
     - Class: 114
-      Script: {instanceID: 3760}
+      Script: {instanceID: 3762}
     - Class: 114
-      Script: {instanceID: 3764}
+      Script: {instanceID: 3786}
     - Class: 114
-      Script: {instanceID: 3788}
+      Script: {instanceID: 3852}
     - Class: 114
-      Script: {instanceID: 3854}
+      Script: {instanceID: 4052}
     - Class: 114
-      Script: {instanceID: 4054}
-    - Class: 114
-      Script: {instanceID: 4100}
+      Script: {instanceID: 4098}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -383,7 +389,7 @@ ScriptsOnlyBuild:
     className: CullingHandler
   - hash:
       serializedVersion: 2
-      Hash: c95ac8d4b33dc1da4d95d31977f62704
+      Hash: ffcb01cee9bb3250d6b83f14851f772a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SimpleObjectMover
