@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
+public class SimpleObjectMover : MonoBehaviourPun, IPunObservable
 {
     private Animator _animator;
 
     [SerializeField]
     private float _moveSpeed;
+
+    [SerializeField]
+    private GameObject gun;
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -40,11 +43,26 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
             transform.position += new Vector3(x, y, 0f) * _moveSpeed;
 
             UpdateMovingBoolean((x != 0f || y != 0f));
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                photonView.RPC("ShootMissile", RpcTarget.All);
+            }
         }
+
     }
 
     private void UpdateMovingBoolean(bool moving)
     {
         _animator.SetBool("moving", moving);
+    }
+
+    [PunRPC]
+    void ShootMissile()
+    {
+        if (!gun.activeSelf)
+            gun.SetActive(true);
+        else
+            gun.SetActive(false);
     }
 }
