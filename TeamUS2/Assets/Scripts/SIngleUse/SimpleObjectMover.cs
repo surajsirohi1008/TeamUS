@@ -21,7 +21,7 @@ public class SimpleObjectMover : MonoBehaviourPun,IPunObservable
         //{
         //    transform.position = (Vector3)stream.ReceiveNext();
         //    transform.rotation = (Quaternion)stream.ReceiveNext();
-        //}
+        //}.
     }
 
     private void Awake()
