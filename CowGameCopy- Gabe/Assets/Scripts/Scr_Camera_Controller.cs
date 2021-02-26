@@ -26,7 +26,7 @@ public class Scr_Camera_Controller : MonoBehaviour
         driftPercent = scr_Movement_Controller.driftPercentRead;
         input = scr_Movement_Controller.input;
         //Set Position
-        targetPos = player.transform.TransformPoint(-offset);
+        targetPos = player.transform.TransformPoint(-new Vector3(Mathf.Abs(offset.x), offset.y, Mathf.Abs(offset.z)));
         transform.position = targetPos;
         //Set Rotation
         if (driftPercent > 0) 

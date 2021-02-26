@@ -8,6 +8,9 @@ public class Scr_Movement_Controller : MonoBehaviour
     [SerializeField] private State MyState;
 
     [Header("General Settings")]
+    [SerializeField] private string leftKey;
+    [SerializeField] private string rightKey;
+    private KeyCode leftKeyCode, rightKeyCode;
     [SerializeField] private float drivingVelocity;
 
     [Header("Rotation Settings")]
@@ -30,22 +33,22 @@ public class Scr_Movement_Controller : MonoBehaviour
     //other parameters
     private float driftPercent;
     private float rotationStartTime;
-    public float input;
+    [HideInInspector] public float input;
     private float driftPower;
+    private int driftingDirection;
     //private Quaternion lastDriftBodyRotation;
     private Vector3 momentum = Vector3.zero;
     private Vector3 knockedAwayDir;
-    private float timeOfCollision; 
+    private float timeOfCollision;
+    private KeyCode k;
 
     //shared paramaters
-    public float driftPercentRead, driftPercentTresholdRead;//read by other scripts
+    [HideInInspector] public float driftPercentRead, driftPercentTresholdRead;//read by other scripts
 
-    [Header("Debug")]
-    public float velocity;
-    public int driftingDirection;
-    public float actualRadius;
-    public float actualRotationsPerSecond;
-    public float startRotationsPerSecond;
+    //[Header("Debug")]
+    // public float velocity;
+    // public float actualRadius;
+    // public float actualRotationsPerSecond;
     // public float percentTest1, percentTest2;
 
     private void Awake()
@@ -59,18 +62,21 @@ public class Scr_Movement_Controller : MonoBehaviour
         trailRenderer.emitting = false;
         rb.maxAngularVelocity = 100f;
         driftPercent = 0;
+        leftKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), leftKey);
+        rightKeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), rightKey);
 
     }
     void Update()
     {
-        input = Input.GetAxisRaw("Horizontal");//Get Input
+        // input = Input.GetAxisRaw("Horizontal");//Get Input
+
+        input = Input.GetKey(leftKeyCode) ? -1 : Input.GetKey(rightKeyCode) ? 1 : 0;
         driftPercentRead = driftPercent;
+        // velocity = rb.velocity.magnitude;//Debug velocity
+        //actualRotationsPerSecond = rb.angularVelocity.magnitude / (2 * Mathf.PI);//Debug rotations per second
+        // actualRadius = MyState != State.Driving ? rb.velocity.magnitude / rb.angularVelocity.magnitude : 0;//Debug radius
 
-        velocity = rb.velocity.magnitude;//Debug velocity
-        actualRotationsPerSecond = rb.angularVelocity.magnitude / (2 * Mathf.PI);//Debug rotations per second
-        actualRadius = MyState != State.Driving ? rb.velocity.magnitude / rb.angularVelocity.magnitude : 0;//Debug radius
-
-
+       
         switch (MyState)
         {
             case State.Driving:
@@ -96,7 +102,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     private void KnockedAway()
     {
         if (Time.time > timeOfCollision + .5f)
-        {  
+        {
             MyState = State.Driving;
         }
     }
@@ -181,9 +187,7 @@ public class Scr_Movement_Controller : MonoBehaviour
             knockedAwayDir = Vector3.Reflect(myDir, contact.normal).normalized;
             rb.velocity = Vector3.zero;
             momentum = Vector3.zero;
-
-            print(knockedAwayDir);
-            rb.AddForce(knockedAwayDir*20f, ForceMode.Impulse);
+            rb.AddForce(knockedAwayDir * 20f, ForceMode.Impulse);
         }
     }
 }
