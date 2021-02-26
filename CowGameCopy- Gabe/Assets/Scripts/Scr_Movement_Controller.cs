@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_Movement_Controller : MonoBehaviour
 {
-    private enum State { Driving, Steering, Drifting };
+    private enum State { Driving, Steering, Drifting, KnockedAway };
     [SerializeField] private State MyState;
 
     [Header("General Settings")]
@@ -34,6 +34,8 @@ public class Scr_Movement_Controller : MonoBehaviour
     private float driftPower;
     //private Quaternion lastDriftBodyRotation;
     private Vector3 momentum = Vector3.zero;
+    private Vector3 knockedAwayDir;
+    private float timeOfCollision; 
 
     //shared paramaters
     public float driftPercentRead, driftPercentTresholdRead;//read by other scripts
@@ -85,14 +87,24 @@ public class Scr_Movement_Controller : MonoBehaviour
                 if (driftPercent < driftPercentTreshold) { DriftingToSteering(); break; }
                 Rotating();
                 break;
+            case State.KnockedAway:
+                KnockedAway();
+                break;
         }
 
     }
+    private void KnockedAway()
+    {
+        if (Time.time > timeOfCollision + .5f)
+        {  
+            MyState = State.Driving;
+        }
+    }
+
     private void Driving()
     {
-        //rb.velocity = transform.forward * drivingVelocity; 
         if (momentum.magnitude > .1f)
-        { momentum -= momentum.normalized * 5 * Time.deltaTime; }
+        { momentum -= momentum.normalized * 10 * Time.deltaTime; }
         else { momentum = Vector3.zero; }
         float velocityTresholdToDrift = driftPercentTreshold * (maxDriftingVelocity - drivingVelocity) + drivingVelocity;
         if (momentum.magnitude < velocityTresholdToDrift && trailRenderer.emitting)
@@ -157,5 +169,21 @@ public class Scr_Movement_Controller : MonoBehaviour
     private void TriggerShot()
     {
         scr_Shooting_Controller.Shoot(driftPower);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Ground"))
+        {
+            timeOfCollision = Time.time;
+            MyState = State.KnockedAway;
+            ContactPoint contact = collision.contacts[0];
+            Vector3 myDir = transform.TransformDirection(transform.forward);
+            knockedAwayDir = Vector3.Reflect(myDir, contact.normal).normalized;
+            rb.velocity = Vector3.zero;
+            momentum = Vector3.zero;
+
+            print(knockedAwayDir);
+            rb.AddForce(knockedAwayDir*20f, ForceMode.Impulse);
+        }
     }
 }
