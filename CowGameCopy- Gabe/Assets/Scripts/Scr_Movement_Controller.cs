@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Scr_Movement_Controller : MonoBehaviour
 {
+    public static bool freeze;
     private enum State { Driving, Steering, Drifting, KnockedAway };
     [SerializeField] private State MyState;
 
     [Header("General Settings")]
+    public int health = 5;
     [SerializeField] private string leftKey;
     [SerializeField] private string rightKey;
     private KeyCode leftKeyCode, rightKeyCode;
@@ -40,7 +42,7 @@ public class Scr_Movement_Controller : MonoBehaviour
     private Vector3 momentum = Vector3.zero;
     private Vector3 knockedAwayDir;
     private float timeOfCollision;
-    private KeyCode k;
+
 
     //shared paramaters
     [HideInInspector] public float driftPercentRead, driftPercentTresholdRead;//read by other scripts
@@ -76,26 +78,36 @@ public class Scr_Movement_Controller : MonoBehaviour
         //actualRotationsPerSecond = rb.angularVelocity.magnitude / (2 * Mathf.PI);//Debug rotations per second
         // actualRadius = MyState != State.Driving ? rb.velocity.magnitude / rb.angularVelocity.magnitude : 0;//Debug radius
 
-       
-        switch (MyState)
+        if (!freeze)
         {
-            case State.Driving:
-                if (input != 0) { DrivingToSteering(); break; }//Switch to Drifting
-                Driving();
-                break;
-            case State.Steering:
-                if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) { AnyToDriving(); break; }//Switch to Driving
-                if (driftPercent >= driftPercentTreshold) { SteeringToDrifting(); break; }//Switch to Driving
-                Rotating();
-                break;
-            case State.Drifting:
-                if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) { TriggerShot(); AnyToDriving(); break; }//Switch to Driving
-                if (driftPercent < driftPercentTreshold) { DriftingToSteering(); break; }
-                Rotating();
-                break;
-            case State.KnockedAway:
-                KnockedAway();
-                break;
+            switch (MyState)
+            {
+                case State.Driving:
+                    if (input != 0) { DrivingToSteering(); break; }//Switch to Drifting
+                    Driving();
+                    break;
+                case State.Steering:
+                    if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) { AnyToDriving(); break; }//Switch to Driving
+                    if (driftPercent >= driftPercentTreshold) { SteeringToDrifting(); break; }//Switch to Driving
+                    Rotating();
+                    break;
+                case State.Drifting:
+                    if (input == 0 && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)) { TriggerShot(); AnyToDriving(); break; }//Switch to Driving
+                    if (driftPercent < driftPercentTreshold) { DriftingToSteering(); break; }
+                    Rotating();
+                    break;
+                case State.KnockedAway:
+                    KnockedAway();
+                    break;
+            }
+
+            if (health <= 0 && !freeze)
+            {
+                freeze = true; 
+                //pop up win and lose message
+                //wait a few secs
+                //set freeze to false and reload scene
+            }
         }
 
     }
@@ -188,6 +200,12 @@ public class Scr_Movement_Controller : MonoBehaviour
             rb.velocity = Vector3.zero;
             momentum = Vector3.zero;
             rb.AddForce(knockedAwayDir * 20f, ForceMode.Impulse);
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Damage"))
+        {
+            health -= 1;
+            //Destroy(collision.gameObject);
         }
     }
 }
