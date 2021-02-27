@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scr_Movement_Controller : MonoBehaviour
 {
-    public static bool freeze;
+    public static bool freeze =false;
     private enum State { Driving, Steering, Drifting, KnockedAway };
     [SerializeField] private State MyState;
 
@@ -42,6 +43,8 @@ public class Scr_Movement_Controller : MonoBehaviour
     private Vector3 momentum = Vector3.zero;
     private Vector3 knockedAwayDir;
     private float timeOfCollision;
+    public GameObject winTextUI, loseTextUI;
+    [SerializeField] private GameObject otherPlayer;
 
 
     //shared paramaters
@@ -103,12 +106,31 @@ public class Scr_Movement_Controller : MonoBehaviour
 
             if (health <= 0 && !freeze)
             {
-                freeze = true; 
-                //pop up win and lose message
-                //wait a few secs
-                //set freeze to false and reload scene
+                StartCoroutine(EndGame());
             }
         }
+
+    }
+
+
+    private IEnumerator EndGame()
+    {
+        freeze = true;
+        if (!winTextUI.activeSelf)
+        {
+            loseTextUI.SetActive(true);
+        }
+        Scr_Movement_Controller otherPlayerScript = otherPlayer.GetComponent<Scr_Movement_Controller>();
+        otherPlayerScript.winTextUI.SetActive(true); 
+        yield return new WaitForSeconds(2f);
+
+        //loseTextUI.SetActive(false);
+        //winTextUI.SetActive(false);
+        //otherPlayerScript.winTextUI.SetActive(true);
+        //otherPlayerScript.loseTextUI.SetActive(true);
+        freeze = false;
+        SceneManager.LoadScene(0);
+
 
     }
     private void KnockedAway()
