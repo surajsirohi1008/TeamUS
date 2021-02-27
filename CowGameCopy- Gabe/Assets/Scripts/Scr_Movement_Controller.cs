@@ -205,7 +205,7 @@ public class Scr_Movement_Controller : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Damage"))
         {
             health -= 1;
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 }
