@@ -24,18 +24,11 @@ public class Scr_Shooting_Controller : MonoBehaviour
     }
     public void Shoot(float percent)
     {
-        //GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
-        //Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
-        //rb.velocity = newProjectile.transform.forward * projectileSpeed;
-        //float shotLevel = Mathf.Clamp((percent * 3) + 1, 1, 3);
-        //if (shotLevel > 2)
-        //{
-        //    StartCoroutine(WaitToShoot(.1f, percent));
-        //}
 
         switch (currentGun)
         {
             case 0:
+                print("shot");
                 ShootA(percent);
                 break;
             case 1:
@@ -54,45 +47,64 @@ public class Scr_Shooting_Controller : MonoBehaviour
 
     IEnumerator ShootACoroutine(float percent) //3 weak but rapid shots
     {
-        GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
-        Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
+        int shots = (int)(percent * 3.2f);
+        print("percent: " + percent);
+        print(shots);
+
+        while (shots > 0)
+        {
+            GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
+            Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
 
 
-        newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
+            newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
 
-        newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
+            newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
 
-        rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed; ;
+            rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed;
 
-        yield return new WaitForSeconds(0.3f);
-
-        newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
-        rb = newProjectile.GetComponent<Rigidbody>();
-
-
-        newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
-
-        newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
-
-        rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed; ;
-
-        yield return new WaitForSeconds(0.3f);
-
-        newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
-        rb = newProjectile.GetComponent<Rigidbody>();
+            yield return new WaitForSeconds(.3f);
+            shots -= 1;
+            yield return null;
+        }
+        yield return null;
 
 
-        newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
 
-        newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
 
-        rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed; ;
+
+
+
+        //yield return new WaitForSeconds(0.3f);
+
+        //newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
+        //rb = newProjectile.GetComponent<Rigidbody>();
+
+
+        //newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
+
+        //newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
+
+        //rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed; ;
+
+        //yield return new WaitForSeconds(0.3f);
+
+        //newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
+        //rb = newProjectile.GetComponent<Rigidbody>();
+
+
+        //newProjectile.GetComponent<Projectile>().damage = GunsData.instance.gunADamage;
+
+        //newProjectile.transform.localScale = Vector3.one * GunsData.instance.gunASize;
+
+        //rb.velocity = newProjectile.transform.forward * GunsData.instance.gunASpeed; 
 
 
     }
 
     void ShootB(float percent)
     {
+        print("b");
         GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
 
@@ -106,6 +118,7 @@ public class Scr_Shooting_Controller : MonoBehaviour
 
     void ShootC(float percent)
     {
+        print("c");
         GameObject newProjectile = Instantiate(projectilePrefab, shooterObj.transform.position, shooterObj.transform.rotation, temporaryStorage);
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
 
