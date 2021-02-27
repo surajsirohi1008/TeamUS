@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Probuilder Test.unity
+- path: C:/Users/Aaron/Documents/GitHub/TeamUS/CowGameCopy- Gabe/Assets/Scenes/SampleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
