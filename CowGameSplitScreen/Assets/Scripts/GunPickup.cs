@@ -8,6 +8,7 @@ public class GunPickup : MonoBehaviour
 
     public guns currentGun;
 
+    [HideInInspector]
     public float damage, speed, size;
 
 
